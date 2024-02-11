@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import Server from '../classes/server';
 
 const router = Router();
 
@@ -24,6 +25,9 @@ router.post('/messages/:id', (request: any, response: Response) => {
 
     const { body, from } = request.body;
     const id = request.params.id;
+
+    const server = Server.instance;
+    server.io.in(id).emit('private-challenge', { from, body })
 
     response.json({
         status: true,

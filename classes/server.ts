@@ -39,10 +39,11 @@ export default class Server {
     private onSockets() {
         console.log('* Escuchando conexiones');
         this.io.on('connection', client => {
-            console.log('* Cliente conectado');
+            configSocket.connectClient(client);
+            configSocket.configUser(client, this.io);
+
             configSocket.disconnect(client);
-            configSocket.message(client);
-            configSocket.challengepass(client, this.io);
+            configSocket.challengePass(client, this.io);
         })
     }
 
